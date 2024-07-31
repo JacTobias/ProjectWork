@@ -13,8 +13,13 @@ function onCancelPressed(){
   console.log("Cancel pressed")
 }
 
-function App() {
+function updateCustomers(){
+  
+  
+}
  
+function App() {
+  let customers=[['Jackie','@gmail.com','password'],['Jordan','@gmail.com','pass'],['Jonathan','@gmail','password']]
  return(
   <div>
     <div id='data'></div>
@@ -28,7 +33,16 @@ function App() {
         </tr>
       </thead>
       <tbody>
-        
+        {customers.map(
+          (item, index)=>{
+            return(<tr>
+              <td>{item[0]}</td>
+              <td>{item[1]}</td>
+              <td>{item[2]}</td>
+              </tr>
+            )
+          }
+        )}
         
       </tbody>
     </table>
