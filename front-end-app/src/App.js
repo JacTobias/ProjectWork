@@ -1,30 +1,47 @@
 import logo from './logo.svg';
 import './App.css';
 import { CustomerList } from './CustomerList';
-import React from 'react'
+import React, {useState} from 'react'
 
-function onDeletePressed(){
-  console.log("Delete pressed")
-}
-function onSavePressed(){
-  console.log("Save pressed")
-}
-function onCancelPressed(){
-  console.log("Cancel pressed")
-}
 
-function updateCustomers(){
-  
-  
-}
+
+
  
 function App() {
-  let customers=[['Jackie','@gmail.com','password'],['Jordan','@gmail.com','pass'],['Jonathan','@gmail','password']]
- return(
+
+
+  let blank={blank:{"id":-1,"name":"","email":"","password":""}};
+  const initialCustomers={customers:[{"id":1,"name":"Jackie","email":"@gmail.com","password":"password"},
+    {"id":2,"name":"Jordan","email":"@gmail.com","password":"password"},
+    {"id":3,"name":"Jonathan","email":"gmail.com","password":"password"}]}
+  //const [customer, setCustomer]=useState(initialCustomers)
+  const [formObject, setFormObject]=useState(blank)
+
+  const  onCancelPressed = function(){
+    console.log("Cancel pressed")
+  }
+  const onSavePressed = function(){
+    console.log("Save pressed")
+  }
+  const onDeletePressed = function(){
+    console.log("Delete")
+  }
+
+  const handleCustomerClick = function(item){
+    console.log("selected",{item})
+    //console.log("customer selected:" ,{item});
+    if (formObject.id===item.id){
+      setFormObject(blank)
+    }else{
+      setFormObject(item)
+    }
+    //setFormObject(item);
+  }
+  return(
   <div>
     <div id='data'></div>
     <h4>Customer List</h4>
-    <table border="1px purple">
+    <table border="1px black">
       <thead>
         <tr>
         <th>Name</th>
@@ -33,12 +50,12 @@ function App() {
         </tr>
       </thead>
       <tbody>
-        {customers.map(
+        {initialCustomers.customers.map(
           (item, index)=>{
-            return(<tr>
-              <td>{item[0]}</td>
-              <td>{item[1]}</td>
-              <td>{item[2]}</td>
+            return(<tr key={index} className={(item.id===formObject.id)? 'selected':''} onClick={()=>handleCustomerClick(item)}>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>{item.password}</td>
               </tr>
             )
           }
@@ -46,20 +63,20 @@ function App() {
         
       </tbody>
     </table>
-    <table border='1px purple'>
+    <table border='1px black'>
     <thead>
       <tr><td>Update</td></tr>
     </thead>
     <tbody>
       <tr>
         <td>Name:</td>
-        <td><input></input></td>
+        <td>{formObject.name}</td>
       </tr>
       <tr>
         <td>Email:</td>
-        <td><input></input></td>
+        <td>{formObject.email}</td>
         </tr>
-        <tr><td>Password:</td><td><input></input></td></tr>
+        <tr><td>Password:</td><td>{formObject.password}</td></tr>
         <tr><td><button onClick={onDeletePressed}>Delete</button><button onClick={onSavePressed}>Save</button><button onClick={onCancelPressed}>Cancel</button></td></tr>
     </tbody>
     </table>
