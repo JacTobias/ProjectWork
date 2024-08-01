@@ -18,6 +18,7 @@ function App() {
   const [customer, setCustomers] = useState([])
   //const [customer, setCustomer]=useState(initialCustomers)
   const [formObject, setFormObject]=useState(blank)
+  const mode = (formObject.id >= 0)? "Update" : "Add";
 
   useEffect(()=> {getCustomers()}, [formObject])
 
@@ -26,13 +27,36 @@ function App() {
   }
 
   const  onCancelPressed = function(){
+    console.log("cancel pressed")
     setFormObject(blank);
   }
   const onSavePressed = function(){
     console.log("Save pressed")
+    if (mode === 'Add'){
+      post(formObject);
+    }
+    else if (mode === 'Update'){
+      put(formObject);
+    }
+    setFormObject(blank);
   }
   const onDeletePressed = function(){
-    console.log("Delete")
+    console.log("delete")
+    console.log(formObject)
+    if (formObject.id >= 0) {
+      deleteById(formObject.id);
+      setFormObject(blank);
+    } else {
+      setFormObject(blank);
+    }
+  }
+
+  const handleInputChange = function(event){
+  const name = event.target.name;
+  const value = event.target.value;
+  let newFormObject = {...formObject}
+  newFormObject[name] = value;
+  setFormObject(newFormObject);
   }
 
   const handleCustomerClick = function(item){
@@ -49,6 +73,7 @@ function App() {
   <div>
     <div id='data'></div>
     <h4>Customer List</h4>
+    <h3>{mode}</h3>
     <table border="1px black">
       <thead>
         <tr>
@@ -78,13 +103,15 @@ function App() {
     <tbody>
       <tr>
         <td>Name:</td>
-        <td>{formObject.name}</td>
+        <td><input name="name" onChange={(e)=>handleInputChange(e)}type='text' value={formObject.name} placeholder="Customer Name" required></input></td>
+        
       </tr>
       <tr>
         <td>Email:</td>
-        <td>{formObject.email}</td>
+        <td><input name="email" onChange={(e)=>handleInputChange(e)} type='text' value={formObject.email} placeholder="Customer Email" required></input></td>
         </tr>
-        <tr><td>Password:</td><td>{formObject.password}</td></tr>
+        <tr><td>Password:</td>
+        <td><input name="password" onChange={(e)=>handleInputChange(e)} type='text' value={formObject.password} placeholder="Customer Password" required></input></td></tr>
         <tr><td><button onClick={onDeletePressed}>Delete</button><button onClick={onSavePressed}>Save</button><button onClick={onCancelPressed}>Cancel</button></td></tr>
     </tbody>
     </table>
