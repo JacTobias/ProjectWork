@@ -41,3 +41,29 @@
   font-weight: bold;
 }
 
+.app{
+  position:relative;
+  margin:auto;
+  width:50%;
+  border:1px solid black;
+  background-color:#d4b8f5;
+}
+
+.customertable{
+  position:relative;
+  margin:auto;
+  width:50%
+}
+
+.form{
+  position:relative;
+  margin:auto;
+  width:50%;
+  padding-top:15px;
+}
+
+.list{
+  position:relative;
+  margin:auto;
+  width:50%
+}

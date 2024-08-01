@@ -68,7 +68,7 @@ function App() {
     //setFormObject(item);
   }
   return(
-    <div>
+    <div className='app'>
       <CustomerList
       customer={customer}
       formObject={formObject}
