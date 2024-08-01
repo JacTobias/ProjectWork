@@ -12,13 +12,18 @@ export function CustomerList(params){
                     <th>Password</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
+        <tbody>
+            {params.customer.map(
+          (item, index)=>{
+            return(<tr key={index} className={(item.id===params.formObject.id)? 'selected':''} onClick={()=>params.handleCustomerClick(item)}>
+              <td>{item.name}</td>
+              <td>{item.email}</td>
+              <td>{item.password}</td>
+              </tr>
+            )
+          }
+        )}
+        </tbody>
         </table>
         </div>
     );
